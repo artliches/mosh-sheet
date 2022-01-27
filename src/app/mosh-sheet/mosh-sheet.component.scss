@@ -46,9 +46,6 @@
 }
 
 $small-font: 9pt;
-.smaller {
-    font-size: 14pt;
-}
 
 h2 {
     font-size: 12pt;
@@ -333,7 +330,7 @@ textarea {
                 "armor      credits";
 
             textarea {
-                font-size: 9pt;
+                font-size: $small-font;
                 grid-area: text-area;
                 border-radius: 0rem;
             }
@@ -372,7 +369,7 @@ textarea {
         .skills-grid {
             row-gap: 0.5rem;
             .skills-info-message {
-                font-size: 9pt;
+                font-size: $small-font;
                 place-self: center;
             }
 
