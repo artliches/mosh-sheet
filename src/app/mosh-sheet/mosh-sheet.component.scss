@@ -1,0 +1,564 @@
+@mixin box-section {
+    border-radius: 10px;
+    padding: 0.5rem;
+    grid-gap: 0.5rem;
+}
+
+@mixin circle-labels {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, min-content);
+    row-gap: 0.5rem;
+    place-items: center;
+}
+
+@mixin card-setup {
+    @include box-section;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, min-content);
+}
+
+@mixin label-with-circle {
+    border-radius: 10px;
+    padding: 0.1rem 0.1rem 0.1rem 0.2rem;
+    &:before {
+        content: '';
+        display: inline-flex;
+        height: 12px;
+        width: 12px;
+        border: 2px solid;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+}
+
+@mixin light-circle-border {
+    border-radius: 10px;
+    padding: 0.1rem 0.1rem 0.1rem 0.2rem;
+    margin-left: 1rem;
+}
+
+@mixin small-circle {
+    height: 12px;
+    width: 12px;
+    border: 3px solid;
+    border-radius: 50%;
+}
+
+$small-font: 9pt;
+.smaller {
+    font-size: 14pt;
+}
+
+h2 {
+    font-size: 12pt;
+}
+
+span {
+    font-size: 10pt;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.mosh-main-grid {
+    display: grid;
+    padding: 1rem;
+
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(6, min-content);
+    grid-gap: 0.5rem;
+
+    grid-template-areas: 
+        "personal   personal    stats   stats   skills   skills   skills   skills"
+        "personal   personal    saves   saves   skills   skills   skills   skills"
+        "class      class       class   class   skills   skills   skills   skills"
+        "health     health      health  stress  skills   skills   skills   skills"
+        "trauma     trauma      trauma  trauma  skills   skills   skills   skills"
+        "loadout    loadout     loadout loadout skills   skills   skills   skills";
+
+    .personal-details-section {
+        grid-area: personal;
+        @include box-section;
+
+        span {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(2, min-content);
+        }
+
+        span:nth-child(1) {
+            place-items: center;
+            >span {
+                cursor: pointer;
+                font-size: $small-font;
+
+                &:hover {
+                    transform: scale(1.1);
+                    transition: all .2s ease-in-out;
+                }
+            }
+        }
+    }
+
+    .stat-section {
+        grid-area: stats;
+        @include card-setup;
+
+        .stat-grid {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 1fr;
+
+            span {
+                @include circle-labels;
+            }
+        }
+    }
+
+    .saves-section {
+        grid-area: saves;
+        @include card-setup;
+
+        .save-grid {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+
+            span {
+                @include circle-labels;
+            }
+        }
+    }
+
+    .class-section {
+        grid-area: class;
+        @include card-setup;
+
+        h2 {
+            place-self: start;
+        }
+
+        .class-grid {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 1fr;
+            column-gap: 0.5rem;
+            place-items: start stretch;
+
+            .class-dropdown-grid {
+                grid-gap: 0.5rem;
+
+                strong {
+                    @include label-with-circle;
+                    cursor: pointer;
+                }
+
+                span {
+                    @include light-circle-border;
+                }
+            }
+        }
+    }
+
+    .health-section {
+        grid-area: health;
+        @include card-setup;
+
+        h2 {
+            place-self: start;
+        }
+
+        .health-grid {
+            grid-template-columns: 10% 90%;
+            grid-template-rows: repeat(3, min-content);
+            grid-gap: 0.2rem;
+            grid-template-areas:
+                "perWound   perWound"
+                "wound      numbers-section"
+                "descrip    descrip";
+
+            span.perWound {
+                grid-area: perWound;
+                place-self: end;
+
+                font-size: $small-font;
+            }
+
+            .numbers-section {
+                grid-area: numbers-section;
+                row-gap: 0.3rem;
+                grid-template-columns: repeat(20, auto);
+                place-items: center;
+                @for $i from 1 through 20 {
+                    span:nth-child(#{$i}) {
+                        cursor: pointer;
+                        grid-area: 1/#{$i};
+                    }
+                }
+            }
+
+            .wound-marks-section {
+                grid-area: wound;
+                grid-template-columns: repeat(2, min-content);
+                grid-template-rows: repeat(4, 1fr);
+                place-items: end;
+
+                grid-template-areas:
+                    ".      ."
+                    "wound  c1"
+                    "wound  c2"
+                    "wound  c3";
+
+                strong {
+                    grid-area: wound;
+                    transform: rotate(-90deg) translate(40%, 90%);
+                }
+                span {
+                    cursor: pointer;
+                }
+                .one {
+                    grid-area: c1;
+                    margin-bottom: 0.3rem;
+                }
+                .two {
+                    grid-area: c2;
+                    margin-bottom: 0.2rem;
+                }
+                .three {
+                    grid-area: c3;
+                    margin-bottom: 0.1rem;
+                }
+            }
+
+            .descrip {
+                grid-area: descrip;
+                place-self: end;
+
+                font-size: $small-font;
+            }
+
+            .health-circles {
+                @include small-circle;
+            }
+        }
+    }
+
+    .stress-section {
+        grid-area: stress;
+        @include card-setup;
+
+        .stress-grid {
+            place-items: center;
+            row-gap: 0.5rem;
+            .stress-input {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: 1fr;
+                input {
+                    width: 4rem;
+                    border-radius: 0rem;
+                }
+                input:nth-child(1) {
+                    border-top-right-radius: 0rem;
+                    border-bottom-right-radius: 0rem;
+                }
+                input:nth-child(2) {
+                    border-top-left-radius: 0rem;
+                    border-bottom-left-radius: 0rem;
+                    border-left: none;
+                }
+            }
+            .stress-labels, .minimum-label {
+                font-size: $small-font;
+            }
+            .stress-labels {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: 1fr;
+                column-gap: 3rem;
+            }
+        }
+    }
+
+    .trauma-section {
+        grid-area: trauma;
+        @include card-setup;
+
+        h2 {
+            place-self: start;
+        }
+
+        .trauma-grid {
+            row-gap: 0.5rem;
+            .trauma-descrip {
+                grid-template-rows: 1fr;
+                grid-template-columns: 10% 10% 80%;
+                grid-template-areas:
+                    "start mid  long";
+                strong {
+                    cursor: pointer;
+                    &:before {
+                        margin-right: 0.5rem;
+                    }
+                    @include label-with-circle;
+                    grid-row-start: 1;
+                    grid-row-end: 1;
+                    grid-column-start: start;
+                    grid-column-end: mid;
+                }
+                span {
+                    margin-left: 1rem;
+                    @include light-circle-border;
+                    grid-row-start: 1;
+                    grid-row-end: 1;
+                    grid-column-start: mid;
+                    grid-column-end: long;
+                }
+            }
+        }
+    }
+
+    .loadout-section {
+        grid-area: loadout;
+        @include card-setup;
+
+        h2 {
+            place-self: start;
+        }
+
+        .loadout-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, min-content);
+            row-gap: 0.5rem;
+            grid-template-areas: 
+                "text-area  text-area"
+                "armor      credits";
+
+            textarea {
+                font-size: 9pt;
+                grid-area: text-area;
+                border-radius: 0rem;
+            }
+            .armor-points-section {
+                grid-area: armor;
+                place-self: end start;
+                input {
+                    place-self: center;
+                    border-radius: 0rem;
+                    width: 4rem;
+                }
+            }
+            .credits-section {
+                grid-area: credits;
+                place-self: end;
+                grid-template-rows: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                strong {
+                    @include light-circle-border;
+                }
+                input {
+                    @include light-circle-border;
+                    width: 4rem;
+                    height: 0.5rem;
+                    font-size: 10pt;
+                    margin-left: 0rem;
+                }
+            }
+        }
+    }
+
+    .skills-section {
+        grid-area: skills;
+        @include card-setup;
+
+        .skills-grid {
+            row-gap: 0.5rem;
+            .skills-info-message {
+                font-size: 9pt;
+                place-self: center;
+            }
+
+            .starting-skills-section {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: 1fr;
+                column-gap: 0.5rem;
+
+                .starting-skills-card {
+                    @include card-setup;
+                    cursor: pointer;
+                    h2 {
+                        @include label-with-circle;
+                        &:before {
+                            margin-right: 0.5rem;
+                        }
+                        place-self: stretch;
+
+                    }
+                }
+            }
+
+            .skill-labels {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: 1fr;
+                place-items: center;
+
+                .skill-label-card {
+                    @include card-setup;
+                    grid-gap: 0rem;
+                }
+            }
+
+            .skills-nodes {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: 1fr;
+                .skill-column {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: repeat(17, min-content);
+                    row-gap: 0.5rem;
+
+                    .individual-skill {
+                        span {
+                            cursor: pointer;
+                        }
+
+                        &:before {
+                            content: '';
+                            display: inline-flex;
+                            height: 12px;
+                            width: 12px;
+                            border: 3px solid;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+                .skill-circle {
+                    @include small-circle;
+                }
+            }
+
+            .skill-training-section, .conditions-section {
+                @include box-section;
+
+                h2 {
+                    place-self: start;
+                }
+
+                input {
+                    text-align: center;
+                }
+            }
+
+            .skill-training-section {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, min-content);
+                grid-template-areas:
+                    "title  progress"
+                    "nodes  progress";
+
+                h2 {
+                    grid-area: title;
+                }
+                .in-progress {
+                    grid-area: progress;
+                }
+                .training-nodes {
+                    .training-nodes-grid {
+                        grid-template-columns: repeat(15, 1fr);
+                        grid-template-rows: 1fr;
+                        div {
+                            cursor: pointer;
+                            height: 12px;
+                            width: 12px;
+                            border: 3px solid;
+                            border-radius: 50%;
+                        }
+                    }
+                    .training-node-labels {
+                        grid-template-rows: 1fr;
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+            }
+
+            .conditions-section {
+                grid-template-columns: 1fr 4fr 4fr;
+                grid-template-rows: repeat(2, min-content);
+                grid-template-areas: 
+                    "title  treatment   conditions"
+                    "nodes  treatment   conditions";
+                
+                h2 {
+                    grid-area: title;
+                }
+
+                .condition-nodes {
+                    grid-area: nodes;
+                    .condition-nodes-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                        grid-template-rows: 1fr;
+                        div {
+                            cursor: pointer;
+                            height: 12px;
+                            width: 12px;
+                            border: 3px solid;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                .treatment-section {
+                    grid-area: treatment;
+                }
+                .conditions-text-section {
+                    grid-area: conditions;
+                }
+            }
+        }
+    }
+
+    .arrows {
+        .arrow {
+            width: 120px;
+        }
+        .line {
+            margin-top: 14px;
+            width: 90px;
+            background: blue;
+            height: 10px;
+            float: left;
+          }
+          
+          .point {
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 30px solid blue;
+            float: right;
+          }
+    }
+}
+
+input, textarea {
+    border-radius: 5px;
+    font-family: 'Ubuntu Mono', sans-serif;
+    font-size: 12pt;
+    border: none;
+}
+
+input[type='number'] {
+    text-align: center;
+    border-radius: 50%;
+    border: 2px solid;
+    width: 2rem;
+    height: 2rem;
+}
+
+h2, h3 {
+    margin: 0rem;
+    place-self: center;
+}
+
+.grid {
+    display: grid;
+}
+
+

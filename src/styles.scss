@@ -1,1 +1,872 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'app/scss/colors';
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu Mono', sans-serif;
+}
+
+button {
+    font-family: 'Ubuntu Mono', sans-serif;
+    border: 0rem;
+    font-weight: bold;
+}
+
+@mixin color-shift {
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+}
+
+.terminal {
+    background-color: $terminal-black;
+    color: $terminal-green;
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+
+    &.main-border {
+        background-color: $terminal-green;
+        transition: background 500ms ease-in-out;
+    }
+
+    header {
+        background-color: $terminal-green;
+        color: $terminal-black;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    .dropdown {
+        background-color: $terminal-green;
+        color: $terminal-black;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    fa-icon {
+        @include color-shift;
+
+        background-color: $terminal-black;
+    }
+
+    .mosh-main-grid {
+        .personal-details-section {
+            @include color-shift;
+
+            background-color: $terminal-green;
+            color: $terminal-black;
+
+            span:nth-child(1) {
+                >span {
+                    background-color: $terminal-black;
+                    color: $terminal-green;
+                }
+            }
+        }
+
+        .loadout-section, .skills-section {
+            @include color-shift;
+
+            border: 2px solid $terminal-green-lighter;
+            h2 {
+                background-color: $terminal-green-lighter;
+                color: $terminal-black;
+            }
+        }
+
+        .health-section {
+            @include color-shift;
+
+            .health-grid {
+                .numbers-section {
+                    span.chosen {
+                        color: $terminal-green;
+                        background-color: $terminal-black;
+                    }
+                }
+                .health-circles {
+                    color: white;
+
+                    &.chosen {
+                        color: $terminal-black;
+                        background-color: white;
+                    }
+                }
+            }
+        }
+
+        .skills-section {
+            @include color-shift;
+
+            .skills-grid {
+                .starting-skills-card, .skill-label-card, .skill-training-section, .conditions-section {
+                    background-color: $terminal-green;
+                    color: $terminal-black;
+
+                    h2 {
+                        background-color: $terminal-black;
+                        color: $terminal-green;
+                    }
+                }
+
+                .starting-skills-card.chosen {
+                    h2:before {
+                        background-color: white;
+                    }
+                }
+
+                .individual-skill {
+                    color: lightgray;
+
+                    &.chosen {
+                        color: $terminal-green-lighter;
+                        &:before {
+                            background-color: white;
+                            color: $terminal-green;
+                        }
+                    }
+                }
+
+                .training-nodes {
+                    .training-nodes-grid {
+                        div.chosen {
+                            background-color: white;
+                        }
+                    }
+                }
+
+                .condition-nodes {
+                    .condition-nodes-grid {
+                        div.chosen {
+                            background-color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        section:not(.personal-details-section, .loadout-section, .skills-section)  {
+            @include color-shift;
+
+            background-color: $terminal-green-lighter;
+            color: $terminal-black;
+
+            h2, strong {
+                background-color: $terminal-black;
+                color: $terminal-green;
+            }
+
+            .class-dropdown-grid, .trauma-descrip{
+                strong {
+                    background-color: black;
+                    color: $terminal-green;
+
+                    &:before {
+                        border-color: black;
+                        background-color: black;
+                    }
+                }
+
+                span {
+                    background-color: white;
+                    color: $terminal-black;
+                }
+            }
+
+            .trauma-descrip.chosen {
+                strong:before {
+                    background-color: white;
+                }
+            }
+
+            .class-dropdown-grid {
+                strong.chosen:before {
+                    background-color: white;
+                }
+            }
+        }
+
+        input, textarea {
+            @include color-shift;
+
+            background-color: $terminal-black;
+            color: $terminal-green;
+        }
+    }
+}
+
+.dark {
+    background-color: $dark-bg;
+    color: $dark-text;
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+
+    &.main-border, .dropdown {
+        background-color: $dark-border;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    header {
+        background-color: white;
+        color: black;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    fa-icon {
+        @include color-shift;
+
+        color: $dark-text;
+        background-color: $dark-bg;
+    }
+
+    .mosh-main-grid {
+        .personal-details-section {
+            @include color-shift;
+
+            background-color: $dark-text;
+            color: $dark-bg;
+
+            span:nth-child(1) {
+                >span {
+                    background-color: black;
+                    color: white;
+                }
+            }
+        }
+
+        .loadout-section, .skills-section {
+            @include color-shift;
+
+            border: 2px solid $dark-border;
+            h2 {
+                background-color: white;
+                color: $terminal-black;
+            }
+        }
+
+        .health-section {
+            @include color-shift;
+
+            .health-grid {
+                .numbers-section {
+                    span.chosen {
+                        color: white;
+                        background-color: $terminal-black;
+                    }
+                }
+                .health-circles {
+                    color: $terminal-black;
+
+                    &.chosen {
+                        background-color:  $terminal-black;
+                    }
+                }
+            }
+        }
+
+        .skills-section {
+            @include color-shift;
+
+            .skills-grid {
+                .starting-skills-card, .skill-label-card, .skill-training-section, .conditions-section {
+                    background-color: $dark-border;
+                    color: $terminal-black;
+                }
+
+                .starting-skills-card.chosen {
+                    h2:before {
+                        background-color: black;
+                    }
+                }
+
+                .individual-skill {
+                    color: $dark-border;
+
+                    &.chosen {
+                        color: $dark-text;
+                        &:before {
+                            background-color: $dark-border;
+                            color: $dark-text;
+                        }
+                    }
+                }
+
+                .training-nodes {
+                    .training-nodes-grid {
+                        div.chosen {
+                            background-color: $dark-bg;
+                        }
+                    }
+                }
+
+                .condition-nodes {
+                    .condition-nodes-grid {
+                        div.chosen {
+                            background-color: $dark-bg;
+                        }
+                    }
+                }
+            }
+        }
+
+        section:not(.personal-details-section, .loadout-section, .skills-section)  {
+            @include color-shift;
+
+            background-color: $dark-border;
+            color: $terminal-black;
+
+            h2, strong {
+                background-color: white;
+            }
+
+            .class-dropdown-grid, .trauma-descrip{
+                strong {
+                    background-color: white;
+                    color: $terminal-black;
+
+                    &:before {
+                        background-color: white;
+                    }
+                }
+
+                span {
+                    background-color: $terminal-black;
+                    color: white;
+                }
+            }
+
+            .trauma-descrip.chosen {
+                strong:before {
+                    background-color: $terminal-black;
+                }
+            }
+
+            .class-dropdown-grid {
+                strong.chosen:before {
+                    background-color: $terminal-black;
+                }
+            }
+        }
+
+        input, textarea {
+            @include color-shift;
+
+            background-color: $dark-bg;
+            color: $dark-text;
+        }
+
+        input[type='number'] {
+            @include color-shift;
+
+            border-color: white;
+        }
+    }
+}
+
+.light {
+    background-color: $light-bg;
+    color: $light-text;
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+
+    &.main-border {
+        background-color: $light-border;
+        transition: background 500ms ease-in-out
+    }
+
+    header {
+        background-color: $light-text;
+        color: $light-bg;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    .dropdown {
+        background-color: $light-border;
+        color: $light-bg;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    fa-icon {
+        background-color: white;
+    }
+
+    .mosh-main-grid {
+        .personal-details-section {
+            @include color-shift;
+
+            background-color: $light-text;
+            color: $light-bg;
+
+            span:nth-child(1) {
+                >span {
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+
+        .loadout-section, .skills-section {
+            @include color-shift;
+
+            border: 2px solid $light-light-bg;
+            h2 {
+                background-color: white;
+                color: black;
+            }
+        }
+
+        .health-section {
+            @include color-shift;
+
+            .health-grid {
+                .numbers-section {
+                    span.chosen {
+                        color: $light-text;
+                        background-color: $light-bg;
+                    }
+                }
+                .health-circles {
+                    color: white;
+
+                    &.chosen {
+                        color: $light-text;
+                        background-color: $light-bg;
+                    }
+                }
+            }
+        }
+
+        .skills-section {
+            @include color-shift;
+
+            .skills-grid {
+                .starting-skills-card, .skill-label-card, .skill-training-section, .conditions-section {
+                    background-color: $light-light-bg;
+                    color: black;
+                }
+
+                .starting-skills-card.chosen {
+                    h2:before {
+                        background-color: black;
+                    }
+                }
+
+                .individual-skill {
+                    color: lightgray;
+
+                    &.chosen {
+                        color: black;
+                        &:before {
+                            background-color: $light-light-bg;
+                            color: black;
+                        }
+                    }
+                }
+
+                .training-nodes {
+                    .training-nodes-grid {
+                        div.chosen {
+                            background-color: white;
+                        }
+                    }
+                }
+
+                .condition-nodes {
+                    .condition-nodes-grid {
+                        div.chosen {
+                            background-color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        section:not(.personal-details-section, .loadout-section, .skills-section)  {
+            @include color-shift;
+
+            background-color: $light-light-bg;
+            color: $terminal-black;
+
+            h2, strong {
+                background-color: white;
+                color: black;
+            }
+
+            .class-dropdown-grid, .trauma-grid{
+                strong {
+                    background-color: black;
+                    color: white;
+
+                    &:before {
+                        border-color: black;
+                        background-color: white;
+                    }
+                }
+
+                span {
+                    background-color: darkgray;
+                    color: white;
+                }
+            }
+
+            .trauma-descrip.chosen {
+                strong:before {
+                    background-color: black;
+                }
+            }
+
+            .class-dropdown-grid {
+                strong.chosen:before {
+                    background-color: black;
+                }
+            }
+        }
+    }
+}
+
+.mork {
+    background-color: $mork-bg;
+    color: $mork-text;
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+
+    &.main-border {
+        background-color: $mork-border;
+        transition: background 500ms ease-in-out
+    }
+
+    header {
+        background-color: white;
+        color: black;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    .dropdown {
+        background-color: $mork-border;
+        color: $mork-bg;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    fa-icon {
+        @include color-shift;
+        background-color: white;
+        color: $mork-bg;
+    }
+
+    .mosh-main-grid {
+        .personal-details-section {
+            @include color-shift;
+            background-color: $mork-text;
+            color: $mork-bg;
+
+            span:nth-child(1) {
+                >span {
+                    background-color: $mork-bg;
+                    color: black;
+                }
+            }
+        }
+
+        .loadout-section, .skills-section {
+            @include color-shift;
+            border: 2px solid $mork-text;
+            h2, strong {
+                background-color: white;
+                color: black;
+            }
+        }
+
+        .health-section {
+            @include color-shift;
+            .health-grid {
+                .numbers-section {
+                    span.chosen {
+                        color: $mork-bg;
+                        background-color: black;
+                    }
+                }
+                .health-circles {
+                    @include color-shift;
+                    color: black;
+
+                    &.chosen {
+                        background-color: $mork-bg;
+                    }
+                }
+            }
+        }
+
+        .skills-section {
+            @include color-shift;
+
+            .skills-grid {
+                .starting-skills-card, .skill-label-card, .skill-training-section, .conditions-section {
+                    background-color: $mork-text;
+                    color: $mork-bg;
+                }
+
+                .starting-skills-card.chosen {
+                    h2:before {
+                        background-color: $mork-bg;
+                    }
+                }
+
+                .individual-skill {
+                    color: black;
+
+                    &.chosen {
+                        span {
+                            color: black;
+                            background-color: white;
+                        }
+
+                        &:before {
+                            background-color: white;
+                        }
+                    }
+                }
+
+
+                .training-nodes {
+                    .training-nodes-grid {
+                        div.chosen {
+                            background-color: white;
+                        }
+                    }
+                }
+
+                .condition-nodes {
+                    .condition-nodes-grid {
+                        div.chosen {
+                            background-color: white;
+                        }
+                    }
+                }
+            }
+        }
+
+        section:not(.personal-details-section, .loadout-section, .skills-section)  {
+            @include color-shift;
+
+            background-color: white;
+            color: $terminal-black;
+
+            h2, strong {
+                background-color: $mork-bg;
+            }
+
+            .class-dropdown-grid, .trauma-descrip{
+                strong {
+                    background-color: $mork-bg;
+                    color: $mork-text;
+
+                    &:before {
+                        border-color: black;
+                        background-color: white;
+                    }
+                }
+
+                span {
+                    background-color: $mork-text;
+                    color: white;
+                }
+            }
+
+
+            .trauma-descrip.chosen {
+                strong:before {
+                    background-color: black;
+                }
+            }
+
+            .class-dropdown-grid {
+                strong.chosen:before {
+                    background-color: black;
+                }
+            }
+        }
+
+        input, textarea {
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+        }
+    }
+}
+
+.cyber {
+    background-color: $cyber-bg;
+    color: $cyber-text;
+    transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+
+    &.main-border {
+        background-color: $cyber-border;
+        transition: background 500ms ease-in-out
+    }
+
+    header {
+        background-color: white;
+        color: $cyber-text;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    .dropdown {
+        background-color: $cyber-border;
+        transition: background 500ms ease-in-out, color 1000ms ease-in-out;
+    }
+
+    fa-icon {
+        @include color-shift;
+        background-color: white;
+    }
+
+    .mosh-main-grid {
+        .personal-details-section {
+            @include color-shift;
+
+            background-color: $cyber-text;
+            color: white;
+
+            span:nth-child(1) {
+                >span {
+                    background-color: white;
+                    color: $cyber-text;
+                }
+            }
+        }
+
+        .loadout-section, .skills-section {
+            @include color-shift;
+
+            border: 2px solid $cyber-text;
+            h2 {
+                background-color: white;
+                color: $cyber-text;
+            }
+
+            textarea, input {
+                background-color: transparent;
+            }
+        }
+
+        .health-section {
+            @include color-shift;
+
+            .health-grid {
+                .numbers-section {
+                    span.chosen {
+                        background-color: white;
+                        color: $cyber-text
+                    }
+                }
+                .health-circles {
+                    color: white;
+
+                    &.chosen {
+                        background-color: $cyber-text;
+                    }
+                }
+            }
+        }
+
+        .skills-section {
+            @include color-shift;
+
+            .skills-grid {
+                .starting-skills-card, .skill-label-card, .skill-training-section, .conditions-section {
+                    background-color: $cyber-text;
+                    color: white;
+                }
+
+                input[type="text"] {
+                    background-color: white;
+                }
+
+                .starting-skills-card.chosen {
+                    h2:before {
+                        background-color: $cyber-border;
+                    }
+                }
+
+                .individual-skill {
+                    color: lightgray;
+
+                    &.chosen {
+                        color: $cyber-text;
+                        &:before {
+                            background-color: $cyber-border;
+                            color: $cyber-text;
+                        }
+                    }
+                }
+
+                .training-nodes {
+                    .training-nodes-grid {
+                        div.chosen {
+                            background-color: $cyber-border;
+                        }
+                    }
+                }
+
+                .condition-nodes {
+                    .condition-nodes-grid {
+                        div.chosen {
+                            background-color: $cyber-border;
+                        }
+                    }
+                }
+            }
+        }
+
+        section:not(.personal-details-section, .loadout-section, .skills-section) {
+            @include color-shift;
+
+            background-color: $cyber-border;
+            color: $cyber-text;
+
+            h2, strong {
+                background-color: white;
+            }
+
+            .class-dropdown-grid, .trauma-descrip{
+                strong {
+                    background-color: white;
+                    color: $cyber-text;
+
+                    &:before {
+                        border-color: black;
+                        background-color: white;
+                    }
+                }
+
+                span {
+                    background-color: $cyber-text;
+                    color: white;
+                }
+            }
+
+            .trauma-descrip.chosen {
+                strong:before {
+                    background-color: $cyber-border;
+                }
+            }
+
+            .class-dropdown-grid {
+                strong.chosen:before {
+                    background-color: $cyber-border;
+                }
+            }
+        }
+
+        input, textarea {
+            @include color-shift;
+
+            background-color: white;
+            color: $cyber-text;
+        }
+    }
+}

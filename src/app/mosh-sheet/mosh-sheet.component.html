@@ -1,0 +1,292 @@
+<span class='mosh-main-grid'>
+    <section class='personal-details-section grid'>
+        <span>
+            <h3>
+                PERSONAL DETAILS
+            </h3>
+            <span (click)='clearStorage()'>
+                click here to end it all
+            </span>
+        </span>
+        <span>
+            <strong>Character Name</strong>
+            <input (input)='updateStorage()' [(ngModel)]='charName' type="text">
+        </span>
+        <span>
+            <strong>Pronouns</strong>
+            <input (input)="updateStorage()" [(ngModel)]='pronouns' type="text">
+        </span>
+        <span>
+            <strong>Personal Notes</strong>
+            <textarea (input)="updateStorage()" [(ngModel)]='personalNotes'></textarea>
+        </span>
+    </section>
+
+    <section class='stat-section grid'>
+        <h2>
+            1. ROLL 2D10+20 FOR EACH <strong>STAT.</strong>
+        </h2>
+        <span class='stat-grid grid'>
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='stats.str' type='number'>
+                <strong>
+                    STRENGTH
+                </strong>
+            </span>
+    
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='stats.spd' type='number'>
+                <strong>
+                    SPEED
+                </strong>
+            </span>
+    
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='stats.int' type='number'>
+                <strong>
+                    INTELLECT
+                </strong>
+            </span>
+    
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='stats.com' type='number'>
+                <strong>
+                    COMBAT
+                </strong>
+            </span>
+        </span>
+
+    </section>
+
+    <section class='saves-section grid'>
+        <h2>
+            2. ROLL 2D10+10 FOR EACH <strong>SAVE.</strong>
+        </h2>
+
+        <span class='save-grid grid'>
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='saves.san' type='number'>
+                <strong>
+                    SANITY
+                </strong>
+            </span>
+
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='saves.fea' type='number'>
+                <strong>
+                    FEAR
+                </strong>
+            </span>
+
+            <span>
+                <input (input)='updateStorage()' [(ngModel)]='saves.bod' type='number'>
+                <strong>
+                    BODY
+                </strong>
+            </span>
+        </span>
+    </section>
+
+    <section class='class-section grid'>
+        <h2>
+            3. SELECT YOUR <strong>CLASS.</strong> Adjust your starting <strong>STATS & SAVES.</strong>
+        </h2>
+
+        <span class='class-grid grid'>
+            <span (click)='choose(class, true, classes)' *ngFor='let class of classes' class='class-dropdown-grid grid'>
+                <strong [ngClass]='{"chosen": class.chosen}'>{{class.class}}</strong>
+                <span *ngFor='let prop of class.props'>
+                    {{prop}}
+                </span>
+            </span>
+        </span>
+    </section>
+
+    <section class='health-section grid'>
+        <h2>
+            4. ROLL 1D10+10 FOR YOUR HEALTH.
+        </h2>
+
+        <span class='health-grid grid'>
+            <span class='perWound'>Health Per Wound</span>
+            <span class='numbers-section grid'>
+                <span (click)='chooseViaIndex(numbersTrack, i, true)' [ngClass]='{"chosen": count.chosen}' class='numbers' *ngFor='let count of numbersTrack; let i = index'>
+                    {{i + 1}}
+                </span>
+                <div (click)='chooseViaIndex(healthTrack1, i, false, true)' [ngClass]='{"chosen": circle.chosen}' class='health-circles' *ngFor='let circle of healthTrack1; let i = index'></div>
+                <div (click)='chooseViaIndex(healthTrack2, i, false, true)' [ngClass]='{"chosen": circle.chosen}' class='health-circles' *ngFor='let circle of healthTrack2; let i = index'></div>
+                <div (click)='chooseViaIndex(healthTrack3, i, false, true)'[ngClass]='{"chosen": circle.chosen}' class='health-circles' *ngFor='let circle of healthTrack3; let i = index'></div>
+            </span>
+            <span class='wound-marks-section grid'>
+                <strong>WOUNDS</strong>
+                <span 
+                [ngClass]="{
+                    'one': wound.pos === 'one',
+                    'two': wound.pos === 'two',
+                    'three': wound.pos === 'three',
+                    'chosen': wound.chosen
+                }"
+                (click)='choose(wound)'
+                class='health-circles' *ngFor='let wound of wounds'></span>
+            </span>
+            <span class='descrip'>
+                Teamsters & Scientists start with 2 Wounds. Marines & Androids start with 3 Wounds.
+            </span>
+        </span>
+    </section>
+
+    <section class='stress-section grid'>
+        <h2>
+            5. GAIN STRESS.
+        </h2>
+        <span class='stress-grid grid'>
+            <strong>STRESS</strong>
+            <span class='stress-input grid'>
+                <input (input)='updateStorage()' [(ngModel)]='stress.cur' type='number'>
+                <input (input)='updateStorage()' [(ngModel)]='stress.min' type='number'>
+            </span>
+            <span class='stress-labels'>
+                <strong>Current</strong>
+                <strong>Minimum</strong>
+            </span>
+            <span class='minimum-label'>
+                Starts at 2.
+            </span>
+        </span>
+    </section>
+
+    <section class='trauma-section grid'>
+        <h2>
+            6. TAKE NOTE OF YOUR CLASS'S TRAUMA RESPONSE.
+        </h2>
+        <span class='trauma-grid grid'>
+            <span
+                *ngFor='let choice of traumaChoices'
+                [ngClass]='{chosen: choice.chosen}'
+                (click)='choose(choice, true, traumaChoices)'
+                class='trauma-descrip grid'
+            >
+                <strong>{{choice.name}}</strong>
+                <span>{{choice.descrip}}</span>
+            </span>
+        </span>
+    </section>
+
+    <section class='loadout-section grid'>
+        <h2>
+            8. ROLL FOR YOUR EQUIPMENT LOADOUT, TRINKET, & PATCH.
+        </h2>
+
+        <span class='loadout-grid grid'>
+            <textarea (input)='updateStorage()' [(ngModel)]='loadout'></textarea>
+            <span class='armor-points-section grid'>
+                <strong>ARMOR POINTS</strong>
+                <input (input)='updateStorage()' [(ngModel)]='armorPoints' type='number'>
+            </span>
+            <span class='credits-section grid'>
+                <strong>CREDITS</strong>
+                <input (input)='updateStorage()' [(ngModel)]='credits' type='number' placeholder="2D10x10">
+            </span>
+        </span>
+    </section>
+
+    <section class='skills-section grid'>
+        <h2>
+            7. NOTE CLASS SKILLS AND CHOOSE BONUS SKILLS.
+        </h2>
+        <span class='skills-grid grid'>
+            <span class='skills-info-message'>
+                To take a Master or Expert Skill you must first take at least one of its prerequisite skills.
+            </span>
+            <span class='starting-skills-section grid'>
+                <span
+                    [ngClass]='{chosen: start.chosen}'
+                    (click)='choose(start, true, startingSkills)'
+                    *ngFor='let start of startingSkills'
+                    class='starting-skills-card grid'
+                    >
+                        <h2>{{start.name}}</h2>
+                        <span [innerHtml]='start.descrip'></span>
+                </span>
+            </span>
+
+            <span class='skill-labels grid'>
+                <span class='skill-label-card grid'>
+                    <h2>TRAINED SKILLS</h2>
+                    <span>(+10 BONUS)</span>
+                </span>
+                <span class='skill-label-card grid'>
+                    <h2>EXPERT SKILLS</h2>
+                    <span>(+15 BONUS)</span>
+                </span>
+                <span class='skill-label-card grid'>
+                    <h2>MASTER SKILLS</h2>
+                    <span>(+20 BONUS)</span>
+                </span>
+            </span>
+
+            <span class='skills-nodes grid'>
+                <span class='trained skill-column grid'>
+                    <div [ngClass]="{'chosen': node.chosen}" class='individual-skill' *ngFor='let node of trainedSkills'>
+                        <span (click)='choose(node)'>
+                            {{node.name}}
+                        </span>
+                    </div>
+                </span>
+                <span class='expert skill-column grid'>
+                    <div [ngClass]="{'chosen': node.chosen}" class='individual-skill' *ngFor='let node of expertSkills'>
+                        <span (click)='choose(node)'>
+                            {{node.name}}
+                        </span>
+                    </div>
+                </span>
+                <span class='master skill-column grid'>
+                    <div [ngClass]="{'chosen': node.chosen}" class='individual-skill' *ngFor='let node of masterSkills'>
+                        <span (click)='choose(node)'>
+                            {{node.name}}
+                        </span>
+                    </div>
+                </span>
+            </span>
+
+            <span class='skill-training-section grid'>
+                <h2>SKILL TRAINING</h2>
+                <span class='training-nodes grid'>
+                    <span class='training-nodes-grid grid'>
+                        <div
+                            (click)='chooseViaIndex(nodes, i)'
+                            [ngClass]="{chosen: node.chosen}"
+                            *ngFor='let node of nodes; let i = index'></div>
+                    </span>
+                    <span class='training-node-labels grid'>
+                        <span>Trained Skill</span>
+                        <span>Expert Skill</span>
+                        <span>Master Skill</span>
+                    </span>
+                </span>
+                <span class='in-progress grid'>
+                    <input (input)='updateStorage()' [(ngModel)]='skillTrainingInput' type="text">
+                </span>
+            </span>
+
+            <span class='conditions-section grid'>
+                <h2>CONDITIONS</h2>
+                <span class='condition-nodes grid'>
+                    <span class='condition-nodes-grid grid'>
+                        <div
+                            (click)='chooseViaIndex(conditions, i)'
+                            [ngClass]='{chosen: node.chosen}'
+                            *ngFor='let node of conditions; let i = index'></div>
+                    </span>
+                    Cured
+                </span>
+                <span class='treatment-section grid'>
+                    <input (input)='updateStorage()' [(ngModel)]='conditionInput1' type='text'>
+                </span>
+                <span class='conditions-text-section grid'>
+                    <input (input)='updateStorage()' [(ngModel)]='conditionInput2' type='text'>
+                </span>
+            </span>
+        </span>
+    </section>
+</span>
