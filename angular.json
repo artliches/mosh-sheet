@@ -123,6 +123,9 @@
               "devServerTarget": "mosh-sheet:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
